@@ -1,84 +1,20 @@
-# Generating Natural Language Proofs with Verifier-Guided Search
+# Generating Natural Language Proofs with Verifier-Guided Search: Diverse
+Beam Search, Aggregation Functions, and Verifier-Weighting in NLProofS
 
 ![Task](images/nlproofs.jpg)
 
 Code for the paper:  
 
-[Generating Natural Language Proofs with Verifier-Guided Search](https://arxiv.org/abs/2205.12443)      
-Conference on Empirical Methods in Natural Language Processing (EMNLP), 2022  
-[Kaiyu Yang](https://www.cs.princeton.edu/~kaiyuy/), [Jia Deng](https://www.cs.princeton.edu/~jiadeng/), and [Danqi Chen](https://www.cs.princeton.edu/~danqic/)   
+We present the code and results for an ablation study of the paper [Generating Natural Language Proofs with Verifier-Guided Search](https://arxiv.org/abs/2205.12443)  by [Kaiyu Yang](https://www.cs.princeton.edu/~kaiyuy/), [Jia Deng](https://www.cs.princeton.edu/~jiadeng/), and [Danqi Chen](https://www.cs.princeton.edu/~danqic/)  . 
 
+## Abstract 
+
+Hallucination of invalid nodes in stepwise proof generation poses a problem for natural
+language processing. Yang et al. (2022) address this issue with NLProofS, mitigating hallucination by using an auxiliary verifier model to guide the stepwise proof generation towards generating valid proof steps. In this study, we replicate the baselines of their work and expand their exploration in three primary directions: (1) varying the prover-verifier proof score weighting in scoring nodes in the proof tree, (2) incorporating diverse beam search for proof tree generation, and (3) evaluating alternative functions for aggregating the scores of nodes in the proof tree. Our highest-performing model achieved an overall proof accuracy of 36.28\% on the official Entailment Bank test dataset, therefore outperforming the (replicated) baseline score of 34.71\% achieved by the original NLProofS model.
 
 ## Quick Links
 
-  - [Requirements](#requirements)
-  - [Data Preprocessing](#data-preprocessing)
-  - [EntailmentBank Experiments](#entailmentbank-experiments)
-  - [RuleTaker Experiments](#ruletaker-experiments)
-  - [Bugs or Questions](#bugs-or-questions)
-  - [Citation](#citation)
-  - [Credits](#credits)
-
-
-## Requirements
-
-1. Download and install [Miniconda Python 3](https://docs.conda.io/en/latest/miniconda.html) (Anaconda should also work).
-1. Clone this repo and `cd` into its root.
-1. Install Python dependencies: `conda env create -f nlproofs.yaml`. You may need to edit [nlproofs.yaml](./nlproofs.yaml) according to your system, e.g., use a different CUDA version. If you have trouble running the installation command, you may also manually install the packages in [nlproofs.yaml](./nlproofs.yaml) in whatever way that works for you. 
-1. Activate the conda environment: `conda activate nlproofs`, and prepend the root of this repo to the `PYTHONPATH` environment variable.
-
-## Data Preprocessing
-
-1. Download the v3_May6_2022 version of [EntailmentBank](https://allenai.org/data/entailmentbank) (MD5: 9cb91896325157cee1f35616be0be179) and unzip it as `./data/entailment_trees_emnlp2021_data_v3/`.  
-1. Download the OWA version of [RuleTaker](https://allenai.org/data/proofwriter) (MD5: bf490364bca241bb5ff9f0ab0c78b71a) and unzip it as `./data/proofwriter-dataset-V2020.12.3/`.
-1. Run `python check_data.py` to check.
-1. Run `python preprocess_ruletaker.py` to preprocess the RuleTaker dataset.
-
-
-## EntailmentBank Experiments
-
-We use [Lightning CLI](https://pytorch-lightning.readthedocs.io/en/stable/common/lightning_cli.html) to create scripts for training, validation, and testing: [prover/main.py](prover/main.py) and [verifier/main.py](verifier/main.py) for the prover and the verifier, respectively. They take arguments from the command line as well as YAML configuration files. Please run `python main.py --help` or refer to the documentation of [Lightning CLI](https://pytorch-lightning.readthedocs.io/en/stable/common/lightning_cli.html) for details. 
-
-We provide YAML files for our hyperparameters and experimental settings in [./prover/](./prover/) and [./verifier/](./verifier/). We run all experiments on a single NVIDIA A6000 GPU with 48GB memory. For running them on GPUs with smaller memory, you may have to change `batch_size` and `accumulate_grad_batches`. On newer GPUs, `--trainer.precision bf16` may lead to significant speedup and memory savings. I have not tested those features thoroughly, so please use them at your own discretion. Note that [pretrained T5 models do not play well with fp16](https://github.com/huggingface/transformers/issues/10830).
-
-
-### Training
-
-#### Prover
-
-First, `cd` into [./prover/](./prover). Then run `python main.py fit --help` to see how to use the training script. Below are example commands used in our experiments:
-```bash
-python main.py fit --config cli_task1_single_shot_t5-large.yaml  # Train a single-shot prover on Task 1 of EntailmentBank.
-python main.py fit --config cli_task1_stepwise_t5-large.yaml     # Train a stepwise prover on Task 1 of EntailmentBank.
-python main.py fit --config cli_task2_single_shot_t5-large.yaml  # Train a single-shot prover on Task 2 of EntailmentBank.
-python main.py fit --config cli_task2_stepwise_t5-large.yaml     # Train a stepwise prover on Task 2 of EntailmentBank.
-```
-
-The training script saves hyperparameters, model checkpoints, and other information to `./prover/lightning_logs/EXP_ID/`, where `EXP_ID` is an arbitrary experiment ID that will be printed by the training script.
-
-#### Verifier
-
-First, `cd` into [./verifier/](./verifier). Then run `python main.py fit --help` to see how to use the training script. Below are example commands used in our experiments:
-```bash
-python main.py fit --config cli_entailmentbank_task1.yaml  # Train a verifier on Task 1 of EntailmentBank.
-python main.py fit --config cli_entailmentbank_task2.yaml  # Train a verifier on Task 2 of EntailmentBank.
-```
-
-The training script saves hyperparameters, model checkpoints, and other information to `./verifier/lightning_logs/EXP_ID/`.
-
-### Validation and Testing
-
-Once training completes, we use the model checkpoint to predict on the validation and testing data. `cd` into [./prover/](./prover) and run `python main.py validate --help` and `python main.py test --help` to see how to use the script for validation and testing. Assume we have a prover checkpoint `PATH_TO_PROVER_CKPT` and a verifier checkpoint `PATH_TO_VERIFIER_CKPT`, below are example commands:
-```bash
-python main.py validate --config cli_task2_stepwise_t5-large.yaml --ckpt_path PATH_TO_PROVER_CKPT                                                                                                     # Validate the stepwise prover without verifier-guided search on Task 2 of EntailmentBank.
-python main.py validate --config cli_task2_stepwise_t5-large.yaml --ckpt_path PATH_TO_PROVER_CKPT --model.verifier_weight 0.5 --model.verifier_ckpt PATH_TO_VERIFIER_CKPT --model.proof_search true   # Validate NLProofS (stepwise prover + verifier-guided search).
-python main.py validate --config cli_task2_stepwise_t5-large.yaml --ckpt_path PATH_TO_PROVER_CKPT --model.verifier_weight 1.0 --model.verifier_ckpt PATH_TO_VERIFIER_CKPT --model.proof_search true   # Validate NLProofS w/o prover score.
-python main.py test --config cli_task2_stepwise_t5-large.yaml --ckpt_path PATH_TO_PROVER_CKPT --model.verifier_weight 0.5 --model.verifier_ckpt PATH_TO_VERIFIER_CKPT --model.proof_search true       # Test NLProofS (stepwise prover + verifier-guided search).
-python main.py test --config cli_task1_single_shot_t5-large.yaml --ckpt_path PATH_TO_PROVER_CKPT                                                                                                   # Test the single-shot prover on Task 1 of EntailmentBank.
-python main.py test --confing cli_task2_single_shot_t5-large.yaml --ckpt_path PATH_TO_PROVER_CKPT --data.path_test ../data/entailment_trees_emnlp2021_data_v3/dataset/task_3/test.jsonl            # Test the single-shot prover (trained on Task 2) on Task 3 of EntailmentBank.
-```
-
-Validation and testing results are saved as `./prover/lightning_logs/EXP_ID/results_val.tsv` and `./prover/lightning_logs/EXP_ID/results_test.tsv`. They are the input to the [EntailmentBank's official evaluation code](https://github.com/allenai/entailment_bank/tree/71385b6d7cc42ac394006bc2fe84d5bd1117f9ac) for calculating the evaluation metrics.
+Any information regarding requirements, data preprocessing, experiments and datasets can be found [here](https://github.com/princeton-nlp/NLProofS).
 
 ### Test Results and Model Checkpoints
 
