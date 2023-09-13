@@ -38,7 +38,7 @@ Any information regarding requirements, data preprocessing, experiments and data
 | 2 |	&minus; 0.5 | 36.078 ± 0.340                     |  
 | 2 |	&minus; 0.2 | 36.078 ± 0.170                     |  
 | 2 | 	0.8 | 33.824 ± 0.588                      |   
-| baseline (1 BG, 0 penalty) | -- | 34.706 ± 0.294 |  
+| baseline (1 BG, 0 penalty) | &minus; | 34.706 ± 0.294 |  
 
 #### Aggregation Functions
 
@@ -54,7 +54,7 @@ Any information regarding requirements, data preprocessing, experiments and data
 #### Conclusion
 
 We replicate the findings by [Yang et al. (2022)](https://arxiv.org/abs/2205.12443) and then present a number of different
-ablations to their baseline model. Our two main contributions are: first, setting the verifier score to 0.7 resulted in a proof accuracy of 35.78\%. Second our implementation of diverse beam search with 2 beam groups and a diversity penalty of &minus; 5.0 achieved a proof accuracy of 36.28\%. These results reveal an interesting direction for future work and demonstrate that further work is needed to understand stepwise proof generation.
+ablations to their baseline model. Our two main contributions are: first, setting the verifier score to 0.7 resulted in a proof accuracy of 35.78\%. Second our implementation of diverse beam search with 2 beam groups and a diversity penalty of &minus; 5.0 achieved a proof accuracy of 36.28\%. These results reveal an interesting direction for future work and demonstrate that additional studies are needed to better understand stepwise proof generation.
 
 #### Acknowledgements
 We would like to thank Professor Danqi Chen for her guidance and advice on our project and more generally for providing us an amazing introduction to the field of natural language processing.
