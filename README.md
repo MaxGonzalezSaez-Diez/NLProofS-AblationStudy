@@ -45,11 +45,11 @@ Any information regarding requirements, data preprocessing, experiments and data
 | f? | function | proof accuracy (in \%)   |  
 |-------------------------------------|---|---|
 | f<sub>1</sub> | baseline | 34.706 ± 0.294          |   
-| f<sub>3</sub> | s^2  min(v1, ..., vn) | 35.000 ± 0.588   |   
-| f<sub>3</sub> | s^3 min(v1, ..., vn) | 35.196 ± 0.679   |   
-| f<sub>3</sub> | s^4 min(v1, ..., vn) | 34.902 ± 0.170   |   
-| f<sub>5</sub> | min_1(I) · mi_n2(I) | 35.098 ± 0.449 |   
-| f<sub>8</sub> | min(v1, ..., vn)^{2?s} | 35.000 ± 0.588 |   
+| f<sub>3</sub> | s<sup>2</sup>  min(v<sub>1</sub>, ..., v<sub>n</sub>) | 35.000 ± 0.588   |   
+| f<sub>3</sub> | s<sup>3</sup> min(v<sub>1</sub>, ..., v<sub>n</sub>) | 35.196 ± 0.679   |   
+| f<sub>3</sub> | s<sup>4</sup> min(v<sub>1</sub>, ..., v<sub>n</sub>) | 34.902 ± 0.170   |   
+| f<sub>5</sub> | min<sub>1</sub>(I) · min<sub>2</sub>(I) | 35.098 ± 0.449 |   
+| f<sub>8</sub> | min(v<sub>1</sub>, ..., v<sub>n</sub>)<sup>2?s</sup> | 35.000 ± 0.588 |   
 
 #### Additional Remark
 
