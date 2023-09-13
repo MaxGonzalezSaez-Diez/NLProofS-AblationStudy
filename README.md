@@ -33,10 +33,10 @@ Any information regarding requirements, data preprocessing, experiments and data
 |-------------------------------------------|---|---|
 | 2  |	&minus; 10.0 | 35.882 ± 0.294                    |   
 | 2 |	&minus; 5.0 | 36.275 ± 0.340                     |  
-| 2 |	?2.0 | 36.176 ± 0.294                     |  
-| 2 |	?0.8 | 35.784 ± 0.170                     |  
-| 2 |	?0.5 | 36.078 ± 0.340                     |  
-| 2 |	?0.2 | 36.078 ± 0.170                     |  
+| 2 |	&minus; 2.0 | 36.176 ± 0.294                     |  
+| 2 |	&minus; 0.8 | 35.784 ± 0.170                     |  
+| 2 |	&minus; 0.5 | 36.078 ± 0.340                     |  
+| 2 |	&minus; 0.2 | 36.078 ± 0.170                     |  
 | 2 | 	0.8 | 33.824 ± 0.588                      |   
 | baseline (1 BG, 0 penalty) | -- | 34.706 ± 0.294 |  
 
@@ -44,12 +44,12 @@ Any information regarding requirements, data preprocessing, experiments and data
 
 | f? | function | proof accuracy (in \%)   |  
 |-------------------------------------|---|---|
-| f_1 | baseline 34.706 ± 0.294          |   
-| f_3 | s^2  min(v1, ..., vn) 35.000 ± 0.588   |   
-| f_3 | s^3 min(v1, ..., vn) 35.196 ± 0.679   |   
-| f_3 | s^4 min(v1, ..., vn) 34.902 ± 0.170   |   
-| f_5 | min_1(I) · mi_n2(I) 35.098 ± 0.449 |   
-| f_8 | min(v1, ..., vn)^{2?s} 35.000 ± 0.588 |   
+| f<sub>1</sub> | baseline | 34.706 ± 0.294          |   
+| f<sub>3</sub> | s^2  min(v1, ..., vn) | 35.000 ± 0.588   |   
+| f<sub>3</sub> | s^3 min(v1, ..., vn) | 35.196 ± 0.679   |   
+| f<sub>3</sub> | s^4 min(v1, ..., vn) | 34.902 ± 0.170   |   
+| f<sub>5</sub> | min_1(I) · mi_n2(I) | 35.098 ± 0.449 |   
+| f<sub>8</sub> | min(v1, ..., vn)^{2?s} | 35.000 ± 0.588 |   
 
 #### Additional Remark
 
