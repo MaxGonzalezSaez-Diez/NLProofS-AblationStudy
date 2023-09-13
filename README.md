@@ -15,25 +15,47 @@ Hallucination of invalid nodes in stepwise proof generation poses a problem for 
 
 Any information regarding requirements, data preprocessing, experiments and datasets can be found [here](https://github.com/princeton-nlp/NLProofS).
 
-### Test Results and Model Checkpoints
+## Ablation Results
 
-Slide right to see download links in the tables below.
+#### Verifier Weighting Experiments
 
-#### Task 1
+| verifier weight               |  proof accuracy ( \%)  |   
+|-------------------------------|---|
+| 0.8 | 35.588 ± 0.588            |  
+| 0.7 | 35.784 ± 0.612               |   
+| 0.5 (baseline) | 34.706 ± 0.294 |   |   
+| 0.3 | 34.706 ± 0.294              |   
+| 0.2 | 34.804 ± 0.340              |   
 
-| Model         | Leaves-F1       | Leaves-AllCorrect      | Steps-F1      | Steps-AllCorrect       | Intermediates-F1       | Intermediates-AllCorrect       | Overall-AllCorrect       | Model checkpoints | Validation predictions | Test predictions  | 
-| ------------- | -------- | ------- | --------------- | ------------- | ---------------- | ---------------- | ---------------- | ---------------- | ---------------- | ---------------- |
-| NLProofS           | 97.6 | 90.0 | 54.8 | 41.8 | 72.0 | 39.7 | 38.2 | [prover](https://drive.google.com/file/d/16Mgor1gT_bJx3tCfT0DMyais79RM3Ka-/view?usp=sharing), [verifier](https://drive.google.com/file/d/1qR8JLwMUQWPHn_m9QImLP7RK1-PbjjuV/view?usp=sharing) | [results_val.tsv](https://drive.google.com/file/d/1pHhCt3JEbfRv7krixcyBcXa-1S-A3QYj/view?usp=sharing) | [results_test.tsv](https://drive.google.com/file/d/11DZRqzefU55AOobsvm8dpTLVHnMc-hHN/view?usp=sharing) |
-| Stepwise prover    | 98.8 | 98.5 | 54.8 | 41.5 | 71.9 | 38.5 | 36.8 | The `prover` above       | [results_val.tsv](https://drive.google.com/file/d/1PTbs_pO5Fds-RtpHtnK6ddXFgyu8trMl/view?usp=sharing) | [results_test.tsv](https://drive.google.com/file/d/1v6qN9xjX9RRDquXtgX0rwONU7XJKubE5/view?usp=sharing) |
-| Single-shot prover | 98.2 | 82.7 | 51.8 | 40.9 | 66.7 | 36.5 | 34.7 | [prover](https://drive.google.com/file/d/1l4ULsNqdNMco-tyOKiLxvxhaSo6TSyzy/view?usp=sharing)               | [results_val.tsv](https://drive.google.com/file/d/1xncmUFBFQTO1ksflhZhiHMC65yaRN5zC/view?usp=sharing) | [results_test.tsv](https://drive.google.com/file/d/1MVGheKhG7XpP9Ejy0WCuZHUnlmhISl_T/view?usp=sharing) |
+#### Diverse Beam Search
+
+| BG | DP | proof accuracy (in \%)               |   
+|-------------------------------------------|---|---|
+| 2  |	?10.0 35.882 ± 0.294                    |   
+| 2 |	?5.0 36.275 ± 0.340                     |  
+| 2 |	?2.0 36.176 ± 0.294                     |  
+| 2 |	?0.8 35.784 ± 0.170                     |  
+| 2 |	?0.5 36.078 ± 0.340                     |  
+| 2 |	?0.2 36.078 ± 0.170                     |  
+| 2 | 	0.8 33.824 ± 0.588                      |   
+| baseline (1 BG, 0 penalty) 34.706 ± 0.294 |  
+
+#### Aggregation Functions
+
+| f? | function | proof accuracy (in \%)   |  
+|-------------------------------------|---|---|
+| f_1 | baseline 34.706 ± 0.294          |   
+| f_3 | s^2  min(v1, ..., vn) 35.000 ± 0.588   |   
+| f_3 | s^3 min(v1, ..., vn) 35.196 ± 0.679   |   
+| f_3 | s^4 min(v1, ..., vn) 34.902 ± 0.170   |   
+| f_5 | min_1(I) · mi_n2(I) 35.098 ± 0.449 |   
+| f_8 | min(v1, ..., vn)^{2?s} 35.000 ± 0.588 |   
+
+#### Additional Remark
 
 #### Task 2
 
-| Model         | Leaves-F1       | Leaves-AllCorrect      | Steps-F1      | Steps-AllCorrect       | Intermediates-F1       | Intermediates-AllCorrect       | Overall-AllCorrect       | Model checkpoints | Validation predictions | Test predictions  | 
-| ------------- | -------- | ------- | --------------- | ------------- | ---------------- | ---------------- | ---------------- | ---------------- | ---------------- | ---------------- |
-| NLProofS           | 90.3 | 60.6 | 48.6 | 35.6 | 70.3 | 39.4 | 34.4 | [prover](https://drive.google.com/file/d/1T10tJ7S1RBWYc-_uQ11ALAhHiQc2V6aN/view?usp=sharing), [verifier](https://drive.google.com/file/d/1l9xLcKbJoFzmnvgQgnvuvncdP8u2FQbV/view?usp=sharing) | [results_val.tsv](https://drive.google.com/file/d/15emy7mokuqnoFjf5t5uLM98W3Oq94U_5/view?usp=sharing) | [results_test.tsv](https://drive.google.com/file/d/1_L4_25KLgxhoEMcOAKPMYAzyvrdYwXmI/view?usp=sharing) |
-| Stepwise prover    | 90.3 | 57.1 | 48.6 | 35.6 | 70.1 | 38.5 | 33.8 | The `prover` above       | [results_val.tsv](https://drive.google.com/file/d/1Mkj_uTg4COo16TR5F7lIaoUpqoYMKWQ8/view?usp=sharing) | [results_test.tsv](https://drive.google.com/file/d/1XyO_cDE8RYEEwiaBUH5efpWWjjHe0D2C/view?usp=sharing) |
-| Single-shot prover | 85.9 | 44.7 | 41.3 | 29.1 | 62.5 | 31.5 | 27.7 | [prover](https://drive.google.com/file/d/1hk5ekp4FQb1-lqEDbbZnYQhxZiafL8Vm/view?usp=sharing)               | [results_val.tsv](https://drive.google.com/file/d/16zZopp0DHNMFXHVX_zmLAEhFNd9i-D3z/view?usp=sharing) | [results_test.tsv](https://drive.google.com/file/d/1ubmt1zCfg__I4f0odiKs4fcT78Sr1Rku/view?usp=sharing) |
+
 
 #### Task 3
 
