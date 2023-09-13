@@ -1,7 +1,8 @@
 # Generating Natural Language Proofs with Verifier-Guided Search: Diverse Beam Search, Aggregation Functions, and Verifier-Weighting in NLProofS
 
 ![Task](images/div_beam.png)
-*[Vijayakumar et al., 2016](https://arxiv.org/abs/1610.02424)*
+<div align="center">[Vijayakumar et al., 2016](https://arxiv.org/abs/1610.02424)</div>
+
 
 We present the code and results for an ablation study of the paper [Generating Natural Language Proofs with Verifier-Guided Search](https://arxiv.org/abs/2205.12443)  by [Kaiyu Yang](https://www.cs.princeton.edu/~kaiyuy/), [Jia Deng](https://www.cs.princeton.edu/~jiadeng/), and [Danqi Chen](https://www.cs.princeton.edu/~danqic/)  . 
 
