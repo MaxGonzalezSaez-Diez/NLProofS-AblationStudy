@@ -31,7 +31,7 @@ Any information regarding requirements, data preprocessing, experiments and data
 
 | BG | DP | proof accuracy (in \%)               |   
 |-------------------------------------------|---|---|
-| 2  |	&minus; 10.0 | 35.882 ± 0.294                    |   
+| 2  |	&minus; 10.0 | 35.882 ± 0.294                   |   
 | 2 |	&minus; 5.0 | 36.275 ± 0.340                     |  
 | 2 |	&minus; 2.0 | 36.176 ± 0.294                     |  
 | 2 |	&minus; 0.8 | 35.784 ± 0.170                     |  
