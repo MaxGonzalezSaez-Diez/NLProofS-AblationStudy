@@ -19,13 +19,33 @@ Any information regarding requirements, data preprocessing, experiments and data
 
 #### Verifier Weighting Experiments
 
-| verifier weight               |  proof accuracy ( \%)  |   
-|-------------------------------|---|
-| 0.8 | 35.588 ± 0.588            |  
-| 0.7 | 35.784 ± 0.612               |   
-| 0.5 (baseline) | 34.706 ± 0.294 |   |   
-| 0.3 | 34.706 ± 0.294              |   
-| 0.2 | 34.804 ± 0.340              |   
+<table>
+  <tr>
+    <th>Verifier Weight</th>
+    <th>Proof Accuracy (\%)</th>
+  </tr>
+  <tr>
+    <td>0.8</td>
+    <td>35.588 ± 0.588</td>
+  </tr>
+  <tr>
+    <td>0.7</td>
+    <td>35.784 ± 0.612</td>
+  </tr>
+  <tr>
+    <td>0.5 (Baseline)</td>
+    <td>34.706 ± 0.294</td>
+  </tr>
+  <tr>
+    <td>0.3</td>
+    <td>34.706 ± 0.294</td>
+  </tr>
+  <tr>
+    <td>0.2</td>
+    <td>34.804 ± 0.340</td>
+  </tr>
+</table>
+
 
 #### Diverse Beam Search
 
