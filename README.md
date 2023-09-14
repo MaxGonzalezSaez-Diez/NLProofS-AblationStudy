@@ -77,7 +77,7 @@ We replicate the findings by [Yang et al. (2022)](https://arxiv.org/abs/2205.124
 ablations to their baseline model. Our two main contributions are: first, setting the verifier score to 0.7 resulted in a proof accuracy of 35.78\%. Second our implementation of diverse beam search with 2 beam groups and a diversity penalty of &minus; 5.0 achieved a proof accuracy of 36.28\%. These results reveal an interesting direction for future work and demonstrate that additional studies are needed to better understand stepwise proof generation.
 
 #### Acknowledgements
-We offer our acknowledgments to Professor Danqi Chen, for her guidance and advice for our project.
+We extend our acknowledgments to Professor Danqi Chen for her guidance and advice on our project, as well as to Dr. Yang for his insightful comments on our paper.
 
 ## Bugs or Questions
 
